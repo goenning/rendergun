@@ -1,0 +1,40 @@
+{
+  "name": "rendergun",
+  "version": "1.0.0",
+  "description": "A pretender service powered by puppeteer",
+  "repository": "https://github.com/goenning/rendergun",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsc && NODE_ENV=development node dist/index.js",
+    "test": "jest --forceExit",
+    "lint": "tslint --project .",
+    "build": "tsc"
+  },
+  "keywords": [
+    "ssr",
+    "puppeteer",
+    "server-side-rendering",
+    "docker"
+  ],
+  "author": "goenning <me@goenning.net>",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "1.7.3",
+    "debug": "4.1.0",
+    "express": "4.16.4",
+    "puppeteer": "1.11.0"
+  },
+  "devDependencies": {
+    "@types/compression": "0.0.36",
+    "@types/debug": "0.0.31",
+    "@types/express": "4.16.0",
+    "@types/jest": "23.3.10",
+    "@types/node": "10.12.12",
+    "@types/puppeteer": "1.11.1",
+    "jest": "23.6.0",
+    "ts-jest": "23.10.5",
+    "tslint": "5.11.0",
+    "typescript": "3.2.1"
+  }
+}
