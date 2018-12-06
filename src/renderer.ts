@@ -56,6 +56,7 @@ export default class Renderer {
       browserWSEndpoint: this.browserWSEndpoint,
     });
     const page = await browser.newPage();
+    page.setUserAgent("rendergun (+http://github.com/goenning/rendergun)");
     page.addListener("response", (res) => {
       if (!response) {
         response = res;
