@@ -23,7 +23,7 @@ export default class Renderer {
         "--disable-dev-shm-usage",
       ],
       executablePath: config.executablePath,
-      headless: false,
+      headless: true,
       ignoreHTTPSErrors: true,
       handleSIGINT: false,
       handleSIGTERM: false,
