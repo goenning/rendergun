@@ -3,7 +3,7 @@ import express from "express";
 import { Server } from "http";
 import config from "./config";
 import { log } from "./log";
-import Renderer from "./renderer";
+import Renderer, { RenderResult } from "./renderer";
 
 const renderer = new Renderer();
 let server: Server;
@@ -26,16 +26,25 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
+  res.status(200).send("");
+});
+
+app.get("/-/health", (req, res) => {
   res.status(200).send("OK");
 });
 
-app.get("/render", async (req, res) => {
+const handleRender = async (req: express.Request, res: express.Response) => {
   recentRequests++;
   activeRequests++;
   const url = decodeURIComponent(req.query.url);
 
   try {
-    const result = await renderer.render(url);
+    let result: RenderResult;
+    if (req.method === "POST") {
+      result = await renderer.renderString(url, req.body);
+    } else {
+      result = await renderer.render(url);
+    }
     return res.status(result.code).send(result.body);
   } catch (err) {
     log.error(err);
@@ -43,24 +52,10 @@ app.get("/render", async (req, res) => {
   } finally {
     activeRequests--;
   }
-});
+};
 
-app.post("/render", async (req, res) => {
-  req.setEncoding("utf8");
-  recentRequests++;
-  activeRequests++;
-  const url = decodeURIComponent(req.query.url);
-
-  try {
-    const result = await renderer.renderString(url, req.body);
-    return res.status(result.code).send(result.body);
-  } catch (err) {
-    log.error(err);
-    return res.status(500).send(err.toString());
-  } finally {
-    activeRequests--;
-  }
-});
+app.get("/render", handleRender);
+app.post("/render", handleRender);
 
 setInterval(() => {
   if (activeRequests === 0 && recentRequests > 50) {
