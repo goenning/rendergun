@@ -1,5 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Renderer can render Fider home page (react) 1`] = `
+"<!DOCTYPE html><html><head>
+  <meta charset=\\"utf-8\\">
+  <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0\\">
+  <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+  <link rel=\\"icon\\" href=\\"https://trax.assets-fider.io/images/64/67/favicon\\" sizes=\\"64x64\\" type=\\"image/png\\">
+  <link rel=\\"icon\\" href=\\"https://trax.assets-fider.io/images/192/67/favicon\\" sizes=\\"192x192\\" type=\\"image/png\\">
+  <link rel=\\"apple-touch-icon\\" href=\\"https://trax.assets-fider.io/images/180/67/favicon?bg=white\\" sizes=\\"180x180\\" type=\\"image/png\\">
+  
+  <link rel=\\"canonical\\" href=\\"https://trax.fider.io\\">
+  
+  
+  
+    <link rel=\\"stylesheet\\" href=\\"https://cdn.assets-fider.io/assets/css/common.a8e0d39bf1ca1dd7cace.css\\">
+  
+    <link rel=\\"stylesheet\\" href=\\"https://cdn.assets-fider.io/assets/css/main.4ecd92dc97dc58983571.css\\">
+  
+  
+  
+    
+      <link rel=\\"preload\\" href=\\"https://cdn.assets-fider.io/assets/css/Home.page.a4e116ad1ef4d11c2fd8.css\\" as=\\"style\\">
+    
+    
+      <link rel=\\"preload\\" href=\\"https://cdn.assets-fider.io/assets/js/Home.page.829c31a73f0da1f8c865.js\\" as=\\"script\\">
+    
+  
+  <title>Trax</title>
+  <meta name=\\"description\\" content=\\"Welcome to our feedback forum Trax is changing the way people organize and discover music and artists. We're looking for suggestions on how we can imp\\">
+  <meta property=\\"og:title\\" content=\\"Trax\\">
+  <meta property=\\"og:description\\" content=\\"Welcome to our feedback forum Trax is changing the way people organize and discover music and artists. We're looking for suggestions on how we can imp\\">
+  <meta property=\\"og:type\\" content=\\"website\\">
+  <meta property=\\"og:url\\" content=\\"https://trax.fider.io/\\">
+  <meta property=\\"og:image\\" content=\\"https://trax.assets-fider.io/images/200/67\\">
+   
+     
+    <link rel=\\"stylesheet\\" href=\\"https://trax.assets-fider.io/custom/f7b25e85e0a7ffadd685905f02f962b1.css\\">
+    
+  
+<link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"https://cdn.assets-fider.io/assets/css/Home.page.a4e116ad1ef4d11c2fd8.css\\"></head>
+<body class=\\"\\">
+  
+
+  
+
+  <div id=\\"root\\"><div id=\\"c-header\\"><div class=\\"c-menu\\"><div class=\\"container\\"><a href=\\"/\\" class=\\"c-menu-item-title\\"><img src=\\"https://trax.assets-fider.io/images/100/67\\" alt=\\"Trax\\"><span>Trax</span></a><div class=\\"c-menu-item-signin\\"><span>Sign in</span></div></div></div></div><div id=\\"p-home\\" class=\\"page container\\"><div class=\\"row\\"><div class=\\"l-welcome-col col-md-4\\"><div class=\\"markdown-body welcome-message\\"><h3>Welcome to our feedback forum</h3>
+<p>Trax is changing the way people organize and discover music and artists. We're looking for suggestions on how we can improve Trax. </p>
+<p>This is the place for you to vote, discuss and share your ideas.</p></div><form autocomplete=\\"off\\" class=\\"c-form\\"><div class=\\"c-form-field\\"><div class=\\"c-form-field-wrapper\\"><input id=\\"input-title\\" type=\\"text\\" maxlength=\\"100\\" placeholder=\\"Enter your suggestion here...\\" value=\\"\\"></div></div></form></div><div class=\\"l-posts-col col-md-8\\"><div class=\\"row\\"><div class=\\"l-filter-col col-7 col-md-8 col-lg-9 mb-2\\"><div class=\\"c-form-field\\"><div><span class=\\"subtitle\\">View</span><div class=\\"c-dropdown l-post-filter m-style-simple is-inline m-right\\"><div><div class=\\"c-dropdown-control\\"><div>Trending</div><span class=\\"c-dropdown-arrow\\"></span></div></div></div></div></div></div><div class=\\"l-search-col col-5 col-md-4 col-lg-3 mb-2\\"><div class=\\"c-form-field m-icon\\"><div class=\\"c-form-field-wrapper\\"><input id=\\"input-query\\" type=\\"text\\" placeholder=\\"Search...\\" value=\\"\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 512 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z\\"></path></svg></div></div></div></div><div class=\\"c-list c-post-list m-divided\\"><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/4/a-new-suggestion\\">A new suggestion</a><p></p><div></div></div></div><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/1/expose-a-public-api\\">Expose a public API</a><div class=\\"markdown-body c-list-item-description\\"><p>If Trax had a public API, the development community would be able to create extensions and enhance the usage of the platform.</p>
+<p>The API should expose all operations that are possible through the UI.</p></div><div class=\\"c-segment l-response\\"><span class=\\"status-label status-planned\\">Planned</span><div class=\\"content\\"><div class=\\"markdown-body \\"><p>We're working on this and is planned to be live in <code>3 months</code>. We'll be looking for beta testers soon.</p></div></div></div></div></div><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/2/translate-trax-to-other-languages\\">Translate Trax to other languages</a><div class=\\"markdown-body c-list-item-description\\"><p>Show a list of most played musics from my friends. This would be very helpful to see what are my friends listening too, maybe they found something new that might be of my interest as well.</p></div><div class=\\"c-segment l-response\\"><div class=\\"content\\"><div class=\\"markdown-body \\"><p>We're working on this and is planned to be live in <code>3 months</code>. We'll be looking for beta testers soon.</p></div></div></div></div></div></div></div></div></div><div id=\\"c-footer\\"><div class=\\"container\\"><div class=\\"l-links\\"><a href=\\"/privacy\\" target=\\"_blank\\">Privacy Policy</a>·<a href=\\"/terms\\" target=\\"_blank\\">Terms of Service</a></div><a class=\\"l-powered\\" target=\\"_blank\\" href=\\"https://getfider.com/\\"><img src=\\"https://getfider.com/images/logo-100x100.png\\" alt=\\"Fider\\"><span>Powered by Fider</span></a></div></div></div><div id=\\"root-modal\\"></div><div id=\\"root-toastify\\"></div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+</body></html>"
+`;
+
+exports[`Renderer can render a simple string 1`] = `"<html><head></head><body>Hello World</body></html>"`;
+
 exports[`Renderer can render example.org 1`] = `
 "<!DOCTYPE html><html><head>
     <title>Example Domain</title>
@@ -49,6 +118,14 @@ exports[`Renderer can render example.org 1`] = `
 </div>
 
 
+</body></html>"
+`;
+
+exports[`Renderer can render javascript content 1`] = `
+"<html><head></head><body>
+    <div id=\\"root\\">A JavaScript Injection</div>
+    
+  
 </body></html>"
 `;
 

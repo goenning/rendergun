@@ -12,6 +12,18 @@ let recentRequests = 0;
 
 const app = express();
 app.use(compression());
+app.use((req, res, next) => {
+  let data = "";
+  req.setEncoding("utf8");
+  req.on("data", (chunk) => {
+     data += chunk;
+  });
+
+  req.on("end", () => {
+      req.body = data;
+      next();
+  });
+});
 
 app.get("/", (req, res) => {
   res.status(200).send("OK");
@@ -24,6 +36,23 @@ app.get("/render", async (req, res) => {
 
   try {
     const result = await renderer.render(url);
+    return res.status(result.code).send(result.body);
+  } catch (err) {
+    log.error(err);
+    return res.status(500).send(err.toString());
+  } finally {
+    activeRequests--;
+  }
+});
+
+app.post("/render", async (req, res) => {
+  req.setEncoding("utf8");
+  recentRequests++;
+  activeRequests++;
+  const url = decodeURIComponent(req.query.url);
+
+  try {
+    const result = await renderer.renderString(url, req.body);
     return res.status(result.code).send(result.body);
   } catch (err) {
     log.error(err);

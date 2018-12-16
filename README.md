@@ -15,4 +15,5 @@ $ echo "GET http://localhost:3000/render?url=http://example.org" | vegeta attack
 
 # To do
 
+- Refactor and remove duplicate code on renderer.ts
 - Better Documentation

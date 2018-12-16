@@ -94,6 +94,51 @@ export default class Renderer {
     return { code: response.status(), body: html };
   }
 
+  public async renderString(url: string, content: string): Promise<RenderResult> {
+    if (!isValidURL(url)) {
+      return {
+        body: "Invalid URL",
+        code: 400,
+      };
+    }
+
+    if (!this.browserWSEndpoint) {
+      await this.waitForChrome();
+    }
+
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: this.browserWSEndpoint,
+    });
+
+    const page = await browser.newPage();
+    await page.setRequestInterception(true);
+
+    page.on("request", (req) => {
+      if (isURLBlackListed(req.url())) {
+        return req.abort();
+      }
+
+      if (req.resourceType() === "document") {
+        req.respond({
+          status: 200,
+          contentType: "text/html",
+          body: content,
+        });
+      } else {
+        req.continue();
+      }
+    });
+
+    await page.goto(url, {
+      waitUntil: "load",
+    });
+    await removeTags(page, ["script", "noscript"]);
+
+    const html = await page.content();
+    await page.close();
+    return { code: 200, body: html };
+  }
+
   private async waitForChrome() {
     let count = 0;
     while (count <= 10) {
