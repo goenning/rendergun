@@ -54,7 +54,7 @@ describe("Renderer", () => {
     expect(result.body).toMatchSnapshot();
   });
 
-  test.only("can render Fider home page (react)", async () => {
+  test("can render Fider home page (react)", async () => {
     jest.setTimeout(8000);
 
     const content = fs.readFileSync("./src/__tests__/testdata/fider-home.html", "UTF-8");

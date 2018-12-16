@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import config from "./config";
 import { log } from "./log";
-import { delay, isURLBlackListed, isValidURL, removeTags } from "./util";
+import { delay, isURLBlackListed, removeTags } from "./util";
 
 export interface RenderResult {
   code: number;
@@ -18,10 +18,15 @@ export default class Renderer {
     }
 
     this.browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
+      args: [
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+      ],
       executablePath: config.executablePath,
-      headless: true,
+      headless: false,
       ignoreHTTPSErrors: true,
+      handleSIGINT: false,
+      handleSIGTERM: false,
     });
 
     this.browser.process().on("exit", async () => {
@@ -33,6 +38,14 @@ export default class Renderer {
     log.renderer(`Chrome instance started on '${this.browserWSEndpoint}'.`);
   }
 
+  public async isHealthy(): Promise<boolean> {
+    if (!this.browser || !this.browserWSEndpoint) {
+      return false;
+    }
+    const process = this.browser.process();
+    return !!process && process.pid >= 0;
+  }
+
   public async close() {
     if (this.browser) {
       await this.browser.close();
@@ -40,7 +53,8 @@ export default class Renderer {
   }
 
   public async render(url: string): Promise<RenderResult> {
-    const page = await this.newPage();
+    const browser = await this.newBrowser();
+    const page = await this.newPage(browser);
     let response: puppeteer.Response|null = null;
     page.addListener("response", (res) => {
       if (!response) {
@@ -69,11 +83,13 @@ export default class Renderer {
 
     const html = await page.content();
     await page.close();
+    await browser.disconnect();
     return { code: response.status(), body: html };
   }
 
   public async renderString(url: string, content: string): Promise<RenderResult> {
-    const page = await this.newPage();
+    const browser = await this.newBrowser();
+    const page = await this.newPage(browser);
 
     page.on("request", (req) => {
       if (isURLBlackListed(req.url())) {
@@ -99,18 +115,21 @@ export default class Renderer {
 
     const html = await page.content();
     await page.close();
+    await browser.disconnect();
     return { code: 200, body: html };
   }
 
-  private async newPage(): Promise<puppeteer.Page> {
+  private async newBrowser(): Promise<puppeteer.Browser> {
     if (!this.browserWSEndpoint) {
       await this.waitForChrome();
     }
 
-    const browser = await puppeteer.connect({
+    return await puppeteer.connect({
       browserWSEndpoint: this.browserWSEndpoint,
     });
+  }
 
+  private async newPage(browser: puppeteer.Browser): Promise<puppeteer.Page> {
     const page = await browser.newPage();
     await page.setRequestInterception(true);
     page.setUserAgent("rendergun (+http://github.com/goenning/rendergun)");

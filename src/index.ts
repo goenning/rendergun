@@ -30,8 +30,13 @@ app.get("/", (req, res) => {
   res.status(200).send("");
 });
 
-app.get("/-/health", (req, res) => {
-  res.status(200).send("OK");
+app.get("/-/health", async (req, res) => {
+  const isHealthy = await renderer.isHealthy();
+  if (isHealthy) {
+    res.status(200).send("OK");
+  } else {
+    res.status(500).send("Renderer has crashed.");
+  }
 });
 
 const handleRender = async (req: express.Request, res: express.Response) => {
@@ -91,18 +96,17 @@ process.on("unhandledRejection", (reason, p) => {
   process.exit(1);
 });
 
-process.on("SIGTERM", () => {
+const shutdown = () => {
+  log.http("Shutting down the HTTP server.");
   server.close(() => {
+    log.http("Server has been shutdown.");
+    log.http("Shutting down the renderer.");
     renderer.close().then(() => {
+      log.http("Rendered has been shutdown.");
       process.exit(0);
     });
   });
-});
+};
 
-process.on("SIGINT", () => {
-  server.close(() => {
-    renderer.close().then(() => {
-      process.exit(0);
-    });
-  });
-});
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
