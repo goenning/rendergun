@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsc && DEBUG=http,renderer,error NODE_ENV=development node dist/index.js",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "lint": "tslint --project .",
     "build": "tsc"
   },
