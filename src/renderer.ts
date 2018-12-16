@@ -40,37 +40,15 @@ export default class Renderer {
   }
 
   public async render(url: string): Promise<RenderResult> {
-    if (!isValidURL(url)) {
-      return {
-        body: "Invalid URL",
-        code: 400,
-      };
-    }
-
-    if (!this.browserWSEndpoint) {
-      await this.waitForChrome();
-    }
-
+    const page = await this.newPage();
     let response: puppeteer.Response|null = null;
-    const browser = await puppeteer.connect({
-      browserWSEndpoint: this.browserWSEndpoint,
-    });
-    const page = await browser.newPage();
-    page.setUserAgent("rendergun (+http://github.com/goenning/rendergun)");
     page.addListener("response", (res) => {
       if (!response) {
         response = res;
       }
     });
 
-    await page.setRequestInterception(true);
-
     page.on("request", (req) => {
-      const blacklist = ["image"];
-      if (blacklist.indexOf(req.resourceType()) >= 0) {
-        return req.abort();
-      }
-
       if (isURLBlackListed(req.url())) {
         return req.abort();
       }
@@ -95,23 +73,7 @@ export default class Renderer {
   }
 
   public async renderString(url: string, content: string): Promise<RenderResult> {
-    if (!isValidURL(url)) {
-      return {
-        body: "Invalid URL",
-        code: 400,
-      };
-    }
-
-    if (!this.browserWSEndpoint) {
-      await this.waitForChrome();
-    }
-
-    const browser = await puppeteer.connect({
-      browserWSEndpoint: this.browserWSEndpoint,
-    });
-
-    const page = await browser.newPage();
-    await page.setRequestInterception(true);
+    const page = await this.newPage();
 
     page.on("request", (req) => {
       if (isURLBlackListed(req.url())) {
@@ -130,6 +92,7 @@ export default class Renderer {
     });
 
     await page.goto(url, {
+      timeout: config.timeout,
       waitUntil: "load",
     });
     await removeTags(page, ["script", "noscript"]);
@@ -137,6 +100,21 @@ export default class Renderer {
     const html = await page.content();
     await page.close();
     return { code: 200, body: html };
+  }
+
+  private async newPage(): Promise<puppeteer.Page> {
+    if (!this.browserWSEndpoint) {
+      await this.waitForChrome();
+    }
+
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: this.browserWSEndpoint,
+    });
+
+    const page = await browser.newPage();
+    await page.setRequestInterception(true);
+    page.setUserAgent("rendergun (+http://github.com/goenning/rendergun)");
+    return page;
   }
 
   private async waitForChrome() {

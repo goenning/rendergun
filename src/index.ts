@@ -4,6 +4,7 @@ import { Server } from "http";
 import config from "./config";
 import { log } from "./log";
 import Renderer, { RenderResult } from "./renderer";
+import { isValidURL } from "./util";
 
 const renderer = new Renderer();
 let server: Server;
@@ -37,6 +38,10 @@ const handleRender = async (req: express.Request, res: express.Response) => {
   recentRequests++;
   activeRequests++;
   const url = decodeURIComponent(req.query.url);
+
+  if (!isValidURL(url)) {
+    return res.status(400).send("Invalid URL");
+  }
 
   try {
     let result: RenderResult;
