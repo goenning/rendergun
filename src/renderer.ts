@@ -52,6 +52,13 @@ export default class Renderer {
     }
   }
 
+  public async finalize() {
+    if (this.browser) {
+      this.browser.process().removeAllListeners();
+      await this.close();
+    }
+  }
+
   public async render(url: string): Promise<RenderResult> {
     const browser = await this.newBrowser();
     const page = await this.newPage(browser);

@@ -9,7 +9,7 @@ describe("Renderer", () => {
   });
 
   afterAll(async () => {
-    await renderer.close();
+    await renderer.finalize();
   });
 
   test("can render example.org", async () => {

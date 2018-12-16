@@ -14,6 +14,7 @@ export class Server {
   private recentRequests = 0;
 
   constructor() {
+    this.renderer = new Renderer();
     this.app = express();
     this.app.use(compression());
     this.app.use((req, res, next) => {
@@ -43,16 +44,6 @@ export class Server {
 
     this.app.get("/render", this.handleRender);
     this.app.post("/render", this.handleRender);
-
-    this.renderer = new Renderer();
-
-    setInterval(() => {
-      if (this.activeRequests === 0 && this.recentRequests > 50) {
-        log.renderer(`Restarting renderer after ${this.recentRequests} requests.`);
-        this.recentRequests = 0;
-        this.renderer.close();
-      }
-    }, 30 * 1000);
   }
 
   public async start() {
@@ -64,15 +55,23 @@ export class Server {
       log.http(`Rendergun started on port ${config.port}.`);
     });
     this.httpServer.setTimeout(config.timeout);
+
+    setInterval(() => {
+      if (this.activeRequests === 0 && this.recentRequests > 50) {
+        log.renderer(`Restarting renderer after ${this.recentRequests} requests.`);
+        this.recentRequests = 0;
+        this.renderer.close();
+      }
+    }, 30 * 1000);
   }
 
-  public async close() {
+  public close() {
     log.http("Shutting down the HTTP server.");
     if (this.httpServer) {
       this.httpServer.close(() => {
         log.http("Server has been shutdown.");
         log.http("Shutting down the renderer.");
-        this.renderer.close().then(() => {
+        this.renderer.finalize().then(() => {
           log.http("Rendered has been shutdown.");
           process.exit(0);
         });
