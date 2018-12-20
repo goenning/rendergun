@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
 import pptrErrors from "puppeteer/Errors";
-import config from "./config";
 import { log } from "./log";
 import { delay, isURLBlackListed, removeTags } from "./util";
 
