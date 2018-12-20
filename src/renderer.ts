@@ -1,11 +1,19 @@
 import puppeteer from "puppeteer";
+import pptrErrors from "puppeteer/Errors";
 import config from "./config";
 import { log } from "./log";
-import { delay, isURLBlackListed, isValidURL, removeTags } from "./util";
+import { delay, isURLBlackListed, removeTags } from "./util";
 
 export interface RenderResult {
   code: number;
   body: string;
+}
+
+export interface RenderOptions {
+  content?: string;
+  timeout?: number;
+  waitUntil?: string;
+  abortRequestRegexp?: string;
 }
 
 export default class Renderer {
@@ -18,19 +26,29 @@ export default class Renderer {
     }
 
     this.browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
-      executablePath: config.executablePath,
+      args: [
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+      ],
       headless: true,
       ignoreHTTPSErrors: true,
+      handleSIGINT: false,
+      handleSIGTERM: false,
     });
 
-    this.browser.process().on("exit", async () => {
-      this.browserWSEndpoint = undefined;
-      log.renderer(`Chrome instance has exited.`);
-      await this.initialize();
-    });
+    this.browser.process().on("exit", this.onChromeExit);
     this.browserWSEndpoint = await this.browser.wsEndpoint();
     log.renderer(`Chrome instance started on '${this.browserWSEndpoint}'.`);
+  }
+
+  public async version(): Promise<string> {
+    if (!!this.browser && !!this.browserWSEndpoint) {
+      const process = this.browser.process();
+      if (!!process && process.pid >= 0) {
+        return this.browser.version();
+      }
+    }
+    throw new Error("Chrome is not running.");
   }
 
   public async close() {
@@ -39,50 +57,48 @@ export default class Renderer {
     }
   }
 
-  public async render(url: string): Promise<RenderResult> {
-    if (!isValidURL(url)) {
-      return {
-        body: "Invalid URL",
-        code: 400,
-      };
+  public async finalize() {
+    log.renderer("Shutting down the renderer.");
+    if (this.browser) {
+      this.browser.process().removeListener("exit", this.onChromeExit);
+      await this.close();
+      log.renderer("Rendered has been shutdown.");
     }
+  }
 
-    if (!this.browserWSEndpoint) {
-      await this.waitForChrome();
-    }
+  public async render(url: string, opts: RenderOptions = {}): Promise<RenderResult> {
+    const browser = await this.newBrowser();
+    const page = await this.newPage(browser);
 
     let response: puppeteer.Response|null = null;
-    const browser = await puppeteer.connect({
-      browserWSEndpoint: this.browserWSEndpoint,
-    });
-    const page = await browser.newPage();
-    page.setUserAgent("rendergun (+http://github.com/goenning/rendergun)");
-    page.addListener("response", (res) => {
-      if (!response) {
-        response = res;
-      }
-    });
-
-    await page.setRequestInterception(true);
-
     page.on("request", (req) => {
-      const blacklist = ["image"];
-      if (blacklist.indexOf(req.resourceType()) >= 0) {
+      if (req.resourceType() === "image" || isURLBlackListed(req.url(), opts.abortRequestRegexp)) {
         return req.abort();
       }
 
-      if (isURLBlackListed(req.url())) {
-        return req.abort();
+      if (req.resourceType() === "document") {
+        if (opts.content) {
+          return req.respond({
+            status: 200,
+            contentType: "text/html",
+            body: opts.content,
+          });
+        }
       }
-
-      req.continue();
+      return req.continue();
     });
 
-    response = await page.goto(url, {
-      timeout: config.timeout,
-      waitUntil: "networkidle0",
-    });
-
+    try {
+      response = await page.goto(url, {
+        timeout: opts.timeout || 10000,
+        waitUntil: (opts.waitUntil || "load") as puppeteer.LoadEvent,
+      });
+    } catch (err) {
+      if (err instanceof pptrErrors.TimeoutError) {
+        return { code: 504, body: err.message };
+      }
+      throw err;
+    }
     if (!response) {
       return { code: 400, body: "no response" };
     }
@@ -91,52 +107,31 @@ export default class Renderer {
 
     const html = await page.content();
     await page.close();
+    await browser.disconnect();
     return { code: response.status(), body: html };
   }
 
-  public async renderString(url: string, content: string): Promise<RenderResult> {
-    if (!isValidURL(url)) {
-      return {
-        body: "Invalid URL",
-        code: 400,
-      };
-    }
-
+  private async newBrowser(): Promise<puppeteer.Browser> {
     if (!this.browserWSEndpoint) {
       await this.waitForChrome();
     }
 
-    const browser = await puppeteer.connect({
+    return await puppeteer.connect({
       browserWSEndpoint: this.browserWSEndpoint,
     });
+  }
 
+  private async newPage(browser: puppeteer.Browser): Promise<puppeteer.Page> {
     const page = await browser.newPage();
     await page.setRequestInterception(true);
+    page.setUserAgent("rendergun (+http://github.com/goenning/rendergun)");
+    return page;
+  }
 
-    page.on("request", (req) => {
-      if (isURLBlackListed(req.url())) {
-        return req.abort();
-      }
-
-      if (req.resourceType() === "document") {
-        req.respond({
-          status: 200,
-          contentType: "text/html",
-          body: content,
-        });
-      } else {
-        req.continue();
-      }
-    });
-
-    await page.goto(url, {
-      waitUntil: "load",
-    });
-    await removeTags(page, ["script", "noscript"]);
-
-    const html = await page.content();
-    await page.close();
-    return { code: 200, body: html };
+  private onChromeExit = async () => {
+    this.browserWSEndpoint = undefined;
+    log.renderer(`Chrome instance has exited.`);
+    await this.initialize();
   }
 
   private async waitForChrome() {

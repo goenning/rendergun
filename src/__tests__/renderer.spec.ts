@@ -9,7 +9,7 @@ describe("Renderer", () => {
   });
 
   afterAll(async () => {
-    await renderer.close();
+    await renderer.finalize();
   });
 
   test("can render example.org", async () => {
@@ -40,7 +40,7 @@ describe("Renderer", () => {
     jest.setTimeout(8000);
 
     const content = fs.readFileSync("./src/__tests__/testdata/simple-string.html", "UTF-8");
-    const result = await renderer.renderString("https://example.org", content);
+    const result = await renderer.render("https://example.org", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();
   });
@@ -49,16 +49,16 @@ describe("Renderer", () => {
     jest.setTimeout(8000);
 
     const content = fs.readFileSync("./src/__tests__/testdata/simple-javascript.html", "UTF-8");
-    const result = await renderer.renderString("https://example.org", content);
+    const result = await renderer.render("https://example.org", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();
   });
 
-  test.only("can render Fider home page (react)", async () => {
+  test("can render Fider home page (react)", async () => {
     jest.setTimeout(8000);
 
     const content = fs.readFileSync("./src/__tests__/testdata/fider-home.html", "UTF-8");
-    const result = await renderer.renderString("https://trax.fider.io/", content);
+    const result = await renderer.render("https://trax.fider.io/", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();
   });

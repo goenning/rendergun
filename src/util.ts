@@ -14,12 +14,8 @@ export const delay = (ms: number) => {
   });
 };
 
-const blacklistRegexp = config.blacklistRegexp
-  ? new RegExp(config.blacklistRegexp)
-  : undefined;
-
-export const isURLBlackListed = (url: string): boolean => {
-  return blacklistRegexp && blacklistRegexp.test(url) ? true : false;
+export const isURLBlackListed = (url: string, regexp?: string): boolean => {
+  return regexp && new RegExp(regexp).test(url) ? true : false;
 };
 
 export const removeTags = async (page: puppeteer.Page, tagNames: string[]) => {

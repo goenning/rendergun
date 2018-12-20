@@ -11,9 +11,9 @@ On your browser, navigate to `http://localhost:3000/render?url=https://example.o
 # Load Testing
 
 Install https://github.com/tsenart/vegeta
+
 $ echo "GET http://localhost:3000/render?url=http://example.org" | vegeta attack -duration=5s | tee results.bin | vegeta report
 
 # To do
 
-- Refactor and remove duplicate code on renderer.ts
 - Better Documentation
