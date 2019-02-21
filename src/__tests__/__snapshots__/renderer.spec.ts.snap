@@ -5,17 +5,17 @@ exports[`Renderer can render Fider home page (react) 1`] = `
   <meta charset=\\"utf-8\\">
   <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0\\">
   <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
-  <link rel=\\"icon\\" href=\\"https://trax.assets-fider.io/images/64/67/favicon\\" sizes=\\"64x64\\" type=\\"image/png\\">
-  <link rel=\\"icon\\" href=\\"https://trax.assets-fider.io/images/192/67/favicon\\" sizes=\\"192x192\\" type=\\"image/png\\">
-  <link rel=\\"apple-touch-icon\\" href=\\"https://trax.assets-fider.io/images/180/67/favicon?bg=white\\" sizes=\\"180x180\\" type=\\"image/png\\">
+  <link rel=\\"icon\\" href=\\"https://trax.assets-fider.io/favicon/logos/xzg8nq00JmiWzX3Pv4XYZyS3bEaZDS2WohSiFxcAsiRQjwoPGcZTzuZvtgpVSurS-trax-logo.png?size=64\\" sizes=\\"64x64\\" type=\\"image/png\\">
+  <link rel=\\"icon\\" href=\\"https://trax.assets-fider.io/favicon/logos/xzg8nq00JmiWzX3Pv4XYZyS3bEaZDS2WohSiFxcAsiRQjwoPGcZTzuZvtgpVSurS-trax-logo.png?size=192\\" sizes=\\"192x192\\" type=\\"image/png\\">
+  <link rel=\\"apple-touch-icon\\" href=\\"https://trax.assets-fider.io/favicon/logos/xzg8nq00JmiWzX3Pv4XYZyS3bEaZDS2WohSiFxcAsiRQjwoPGcZTzuZvtgpVSurS-trax-logo.png?size=180&amp;bg=white\\" sizes=\\"180x180\\" type=\\"image/png\\">
   
   <link rel=\\"canonical\\" href=\\"https://trax.fider.io\\">
   
   
   
-    <link rel=\\"stylesheet\\" href=\\"https://cdn.assets-fider.io/assets/css/common.a8e0d39bf1ca1dd7cace.css\\">
+    <link rel=\\"stylesheet\\" href=\\"https://cdn.assets-fider.io/assets/css/common.f6d35578f31a13e2ddf8.css\\">
   
-    <link rel=\\"stylesheet\\" href=\\"https://cdn.assets-fider.io/assets/css/main.4ecd92dc97dc58983571.css\\">
+    <link rel=\\"stylesheet\\" href=\\"https://cdn.assets-fider.io/assets/css/main.6c982274ba674fed1351.css\\">
   
   
   
@@ -23,7 +23,7 @@ exports[`Renderer can render Fider home page (react) 1`] = `
       <link rel=\\"preload\\" href=\\"https://cdn.assets-fider.io/assets/css/Home.page.a4e116ad1ef4d11c2fd8.css\\" as=\\"style\\">
     
     
-      <link rel=\\"preload\\" href=\\"https://cdn.assets-fider.io/assets/js/Home.page.829c31a73f0da1f8c865.js\\" as=\\"script\\">
+      <link rel=\\"preload\\" href=\\"https://cdn.assets-fider.io/assets/js/Home.page.a5e9acddd79b764e48bd.js\\" as=\\"script\\">
     
   
   <title>Trax</title>
@@ -32,34 +32,37 @@ exports[`Renderer can render Fider home page (react) 1`] = `
   <meta property=\\"og:description\\" content=\\"Welcome to our feedback forum Trax is changing the way people organize and discover music and artists. We're looking for suggestions on how we can imp\\">
   <meta property=\\"og:type\\" content=\\"website\\">
   <meta property=\\"og:url\\" content=\\"https://trax.fider.io/\\">
-  <meta property=\\"og:image\\" content=\\"https://trax.assets-fider.io/images/200/67\\">
+  <meta property=\\"og:image\\" content=\\"https://trax.assets-fider.io/images/logos/xzg8nq00JmiWzX3Pv4XYZyS3bEaZDS2WohSiFxcAsiRQjwoPGcZTzuZvtgpVSurS-trax-logo.png?size=200\\">
+<link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"https://cdn.assets-fider.io/assets/css/Home.page.a4e116ad1ef4d11c2fd8.css\\"></head>
+<body class=\\"is-authenticated is-staff\\">
+  
+
+  
+  
+  
+
+  <div id=\\"root\\"><div id=\\"c-header\\"><div class=\\"c-menu\\"><div class=\\"container\\"><a href=\\"/\\" class=\\"c-menu-item-title\\"><img src=\\"https://trax.assets-fider.io/images/logos/xzg8nq00JmiWzX3Pv4XYZyS3bEaZDS2WohSiFxcAsiRQjwoPGcZTzuZvtgpVSurS-trax-logo.png?size=100\\" alt=\\"Trax\\"><span>Trax</span></a><div class=\\"c-menu-item-signin\\"><img class=\\"c-avatar m-normal m-staff\\" title=\\"\\" src=\\"https://trax.assets-fider.io/avatars/gravatar/4645/Guilherme%20Oenning?size=50\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z\\"></path></svg><div class=\\"c-menu-user\\"><div class=\\"c-menu-user-heading\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 448 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z\\"></path></svg> <span>Guilherme Oenning</span></div><a href=\\"/settings\\" class=\\"c-menu-user-item\\">Settings</a><a href=\\"/notifications\\" class=\\"c-menu-user-item\\">Notifications</a><div class=\\"c-menu-user-divider\\"></div><div class=\\"c-menu-user-heading\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 512 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M444.788 291.1l42.616 24.599c4.867 2.809 7.126 8.618 5.459 13.985-11.07 35.642-29.97 67.842-54.689 94.586a12.016 12.016 0 0 1-14.832 2.254l-42.584-24.595a191.577 191.577 0 0 1-60.759 35.13v49.182a12.01 12.01 0 0 1-9.377 11.718c-34.956 7.85-72.499 8.256-109.219.007-5.49-1.233-9.403-6.096-9.403-11.723v-49.184a191.555 191.555 0 0 1-60.759-35.13l-42.584 24.595a12.016 12.016 0 0 1-14.832-2.254c-24.718-26.744-43.619-58.944-54.689-94.586-1.667-5.366.592-11.175 5.459-13.985L67.212 291.1a193.48 193.48 0 0 1 0-70.199l-42.616-24.599c-4.867-2.809-7.126-8.618-5.459-13.985 11.07-35.642 29.97-67.842 54.689-94.586a12.016 12.016 0 0 1 14.832-2.254l42.584 24.595a191.577 191.577 0 0 1 60.759-35.13V25.759a12.01 12.01 0 0 1 9.377-11.718c34.956-7.85 72.499-8.256 109.219-.007 5.49 1.233 9.403 6.096 9.403 11.723v49.184a191.555 191.555 0 0 1 60.759 35.13l42.584-24.595a12.016 12.016 0 0 1 14.832 2.254c24.718 26.744 43.619 58.944 54.689 94.586 1.667 5.366-.592 11.175-5.459 13.985L444.788 220.9a193.485 193.485 0 0 1 0 70.2zM336 256c0-44.112-35.888-80-80-80s-80 35.888-80 80 35.888 80 80 80 80-35.888 80-80z\\"></path></svg> <span>Administration</span></div><a href=\\"/admin\\" class=\\"c-menu-user-item\\">Site Settings</a><div class=\\"c-menu-user-divider\\"></div><a href=\\"/signout?redirect=/\\" class=\\"c-menu-user-item signout\\">Sign out</a></div></div></div></div></div><div id=\\"p-home\\" class=\\"page container\\"><div class=\\"row\\"><div class=\\"l-welcome-col col-md-4\\"><div class=\\"markdown-body welcome-message\\"><h3>Welcome to our feedback forum</h3>
+<p>Trax is changing the way people organize and discover music and artists. We're looking for suggestions on how we can improve Trax. </p>
+<p>This is the place for you to vote, discuss and share your ideas.</p></div><form autocomplete=\\"off\\" class=\\"c-form\\"><div class=\\"c-form-field\\"><div class=\\"c-form-field-wrapper\\"><input id=\\"input-title\\" type=\\"text\\" maxlength=\\"100\\" placeholder=\\"Enter your suggestion here...\\" value=\\"\\"></div></div></form></div><div class=\\"l-posts-col col-md-8\\"><div class=\\"row\\"><div class=\\"l-filter-col col-7 col-md-8 col-lg-9 mb-2\\"><div class=\\"c-form-field\\"><div><span class=\\"subtitle\\">View</span><div class=\\"c-dropdown l-post-filter m-style-simple is-inline m-right\\"><div><div class=\\"c-dropdown-control\\"><div>Trending</div><span class=\\"c-dropdown-arrow\\"></span></div></div></div></div></div></div><div class=\\"l-search-col col-5 col-md-4 col-lg-3 mb-2\\"><div class=\\"c-form-field m-icon\\"><div class=\\"c-form-field-wrapper\\"><input id=\\"input-query\\" type=\\"text\\" placeholder=\\"Search...\\" value=\\"\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 512 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z\\"></path></svg></div></div></div></div><div class=\\"c-list c-post-list m-divided\\"><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"m-voted no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/1/expose-a-public-api\\">Expose a public API</a><div class=\\"markdown-body c-list-item-description\\"><p>If Trax had a public API, the development community would be able to create extensions and enhance the usage of the platform.</p>
+<p>The API should expose all operations that are possible through the UI.</p></div><div class=\\"c-segment l-response\\"><span class=\\"status-label status-planned\\">Planned</span><div class=\\"content\\"><div class=\\"markdown-body \\"><p>We're working on this and is planned to be live in <code>3 months</code>. We'll be looking for beta testers soon.</p></div></div></div></div></div><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"m-voted no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/2/translate-trax-to-other-languages\\">Translate Trax to other languages</a><div class=\\"markdown-body c-list-item-description\\"><p>Show a list of most played musics from my friends. This would be very helpful to see what are my friends listening too, maybe they found something new that might be of my interest as well.</p></div><div class=\\"c-segment l-response\\"><div class=\\"content\\"><div class=\\"markdown-body \\"><p>We're working on this and is planned to be live in <code>3 months</code>. We'll be looking for beta testers soon.</p></div></div></div></div></div></div></div></div></div><div id=\\"c-footer\\"><div class=\\"container\\"><div class=\\"l-links\\"><a href=\\"/privacy\\" target=\\"_blank\\">Privacy Policy</a>·<a href=\\"/terms\\" target=\\"_blank\\">Terms of Service</a></div><a class=\\"l-powered\\" target=\\"_blank\\" href=\\"https://getfider.com/\\"><img src=\\"https://getfider.com/images/logo-100x100.png\\" alt=\\"Fider\\"><span>Powered by Fider</span></a></div></div></div><div id=\\"root-modal\\"></div><div id=\\"root-toastify\\"></div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
    
      
-    <link rel=\\"stylesheet\\" href=\\"https://trax.assets-fider.io/custom/f7b25e85e0a7ffadd685905f02f962b1.css\\">
+    <link rel=\\"stylesheet\\" href=\\"https://trax.assets-fider.io/custom/cbe8b6ae420c07d65641709fa5153698.css\\">
     
-  
-<link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"https://cdn.assets-fider.io/assets/css/Home.page.a4e116ad1ef4d11c2fd8.css\\"></head>
-<body class=\\"\\">
-  
-
-  
-
-  <div id=\\"root\\"><div id=\\"c-header\\"><div class=\\"c-menu\\"><div class=\\"container\\"><a href=\\"/\\" class=\\"c-menu-item-title\\"><img src=\\"https://trax.assets-fider.io/images/100/67\\" alt=\\"Trax\\"><span>Trax</span></a><div class=\\"c-menu-item-signin\\"><span>Sign in</span></div></div></div></div><div id=\\"p-home\\" class=\\"page container\\"><div class=\\"row\\"><div class=\\"l-welcome-col col-md-4\\"><div class=\\"markdown-body welcome-message\\"><h3>Welcome to our feedback forum</h3>
-<p>Trax is changing the way people organize and discover music and artists. We're looking for suggestions on how we can improve Trax. </p>
-<p>This is the place for you to vote, discuss and share your ideas.</p></div><form autocomplete=\\"off\\" class=\\"c-form\\"><div class=\\"c-form-field\\"><div class=\\"c-form-field-wrapper\\"><input id=\\"input-title\\" type=\\"text\\" maxlength=\\"100\\" placeholder=\\"Enter your suggestion here...\\" value=\\"\\"></div></div></form></div><div class=\\"l-posts-col col-md-8\\"><div class=\\"row\\"><div class=\\"l-filter-col col-7 col-md-8 col-lg-9 mb-2\\"><div class=\\"c-form-field\\"><div><span class=\\"subtitle\\">View</span><div class=\\"c-dropdown l-post-filter m-style-simple is-inline m-right\\"><div><div class=\\"c-dropdown-control\\"><div>Trending</div><span class=\\"c-dropdown-arrow\\"></span></div></div></div></div></div></div><div class=\\"l-search-col col-5 col-md-4 col-lg-3 mb-2\\"><div class=\\"c-form-field m-icon\\"><div class=\\"c-form-field-wrapper\\"><input id=\\"input-query\\" type=\\"text\\" placeholder=\\"Search...\\" value=\\"\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 512 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z\\"></path></svg></div></div></div></div><div class=\\"c-list c-post-list m-divided\\"><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/4/a-new-suggestion\\">A new suggestion</a><p></p><div></div></div></div><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/1/expose-a-public-api\\">Expose a public API</a><div class=\\"markdown-body c-list-item-description\\"><p>If Trax had a public API, the development community would be able to create extensions and enhance the usage of the platform.</p>
-<p>The API should expose all operations that are possible through the UI.</p></div><div class=\\"c-segment l-response\\"><span class=\\"status-label status-planned\\">Planned</span><div class=\\"content\\"><div class=\\"markdown-body \\"><p>We're working on this and is planned to be live in <code>3 months</code>. We'll be looking for beta testers soon.</p></div></div></div></div></div><div class=\\"c-list-item\\"><div class=\\"c-vote-counter\\"><button class=\\"no-touch\\"><svg stroke=\\"currentColor\\" fill=\\"currentColor\\" stroke-width=\\"0\\" viewBox=\\"0 0 320 512\\" class=\\"icon\\" height=\\"1em\\" width=\\"1em\\"><path d=\\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\\"></path></svg>1</button></div><div class=\\"c-list-item-content\\"><a class=\\"c-list-item-title\\" href=\\"/posts/2/translate-trax-to-other-languages\\">Translate Trax to other languages</a><div class=\\"markdown-body c-list-item-description\\"><p>Show a list of most played musics from my friends. This would be very helpful to see what are my friends listening too, maybe they found something new that might be of my interest as well.</p></div><div class=\\"c-segment l-response\\"><div class=\\"content\\"><div class=\\"markdown-body \\"><p>We're working on this and is planned to be live in <code>3 months</code>. We'll be looking for beta testers soon.</p></div></div></div></div></div></div></div></div></div><div id=\\"c-footer\\"><div class=\\"container\\"><div class=\\"l-links\\"><a href=\\"/privacy\\" target=\\"_blank\\">Privacy Policy</a>·<a href=\\"/terms\\" target=\\"_blank\\">Terms of Service</a></div><a class=\\"l-powered\\" target=\\"_blank\\" href=\\"https://getfider.com/\\"><img src=\\"https://getfider.com/images/logo-100x100.png\\" alt=\\"Fider\\"><span>Powered by Fider</span></a></div></div></div><div id=\\"root-modal\\"></div><div id=\\"root-toastify\\"></div>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 
 
