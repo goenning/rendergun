@@ -45,4 +45,6 @@ COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/package.json /app/package.json
 
+HEALTHCHECK CMD curl --fail http://localhost:3000/-/health || exit 1  
+
 CMD ["npm", "start"]
