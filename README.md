@@ -8,11 +8,11 @@
 
 ## Use Case
 
-It's becoming very common for developers to build public websites using client-side rendered libraries built with Javascript, such as React, Vue.js and Angular. While these are great for building interactive websites, if not used correctly, they can hurt Search Engine Optimization (SEO).
+It's common for developers to build client-side rendered websites using Javascript. While this is great for building interactive websites, if not used correctly, it'll definitely hurt the Search Engine Optimization (SEO) and index ranking.
 
-Most of these libraries provide a way to do Server-Side Rendering (SSR), which is the perfect solution for SEO. But SSR is not always possible, so a **Pre-rendering** application such as Rendergun is another solution.
+Most libraries provide a way to do Server-Side Rendering (SSR), which is perfect for SEO. But SSR is not always possible, so a **Pre-rendering** application such as Rendergun is another solution.
 
-Rendergun uses a real browser to load your page, execute the JavaScript, build the DOM and retun the HTML as a string. This string can then be returned as a response to web crawlers such as Google, Bing, DuckDuckGo, etc. 
+**Rendergun** uses a real browser to load your page, download all assets, execute the JavaScript, build the DOM and retun the HTML as a string. This string can then be returned as a response to web crawlers such as Google, Bing, DuckDuckGo, etc. 
 
 Pre-rendering is recommended by Google. Visit [https://developers.google.com/search/docs/guides/dynamic-rendering](https://developers.google.com/search/docs/guides/dynamic-rendering) to learn more.
 
