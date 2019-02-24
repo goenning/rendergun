@@ -52,12 +52,13 @@ docker run --name rendergun -p 3000:3000 goenning/rendergun
 - HTTP Method: GET or POST
 - Parameters: 
 
-| Location | Name | Default Value  | Comments |
-| ---- | ---- | -------------- | ----------- |
-| QueryString | url | | which url to pre-render |
-| HTTP Header | x-rendergun-wait-until | `load` | which chrome event to wait before returning the HTML. Possible values are `load`, `domcontentloaded`, `networkidle0`,`networkidle2` |
-| HTTP Header | x-rendergun-timeout | `10000` | timeout in miliseconds for Chrome to load the page |
-| HTTP Header | x-rendergun-abort-request | | a RegExp that aborts all requests that matches it. Useful to skip requests to CSS/Images files that are not required for pre-rendering |
+| Location | Name | Default Value | Required | Comments |
+| ---- | ---- | -------------- |:-----------:| ----------- |
+| QueryString | url | | Yes | which url to pre-render |
+| Body | N/A | | No | Rendergun will skip the initial page load of `url` and use the content of `body` to render the page. This is useful if the requestor knows what's the content of `url` as this can avoid an additional HTTP Request. When set, it should be of type `text/html`. |
+| HTTP Header | x-rendergun-wait-until | `load` | No | which chrome event to wait before returning the HTML. Possible values are `load`, `domcontentloaded`, `networkidle0`,`networkidle2` |
+| HTTP Header | x-rendergun-timeout | `10000` | No | timeout in miliseconds for Chrome to load the page |
+| HTTP Header | x-rendergun-abort-request | | No | a RegExp that aborts all requests that matches it. Useful to skip requests to CSS/Images files that are not required for pre-rendering |
 
 **Example:** [https://demo.fider.io](https://demo.fider.io) is a client-side rendered page built with React. Look at the source and you'll see that only JavaScript files and a JSON object is returned by the server. The whole HTML is built by React when it's executed by the browser. 
 
