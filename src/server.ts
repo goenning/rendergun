@@ -1,19 +1,22 @@
 import compression = require("compression");
 import express from "express";
 import { Server as HttpServer } from "http";
+import { Cache } from "./cache";
 import config from "./config";
 import { log } from "./log";
-import Renderer, { RenderResult } from "./renderer";
+import Renderer from "./renderer";
 import { isValidURL } from "./util";
 
 export class Server {
   private app: express.Express;
+  private cache: Cache;
   private renderer: Renderer;
   private httpServer: HttpServer | undefined;
   private activeRequests = 0;
   private recentRequests = 0;
 
   constructor() {
+    this.cache = new Cache();
     this.renderer = new Renderer();
     this.app = express();
     this.app.use(compression());
@@ -56,6 +59,8 @@ export class Server {
     });
 
     setInterval(() => {
+      this.cache.stats();
+
       if (this.activeRequests === 0 && this.recentRequests > 50) {
         log.renderer(`Restarting renderer after ${this.recentRequests} requests.`);
         this.recentRequests = 0;
@@ -66,6 +71,7 @@ export class Server {
 
   public close() {
     log.http("Shutting down the HTTP server.");
+    this.cache.prune();
     if (this.httpServer) {
       this.httpServer.close(() => {
         log.http("Server has been shutdown.");
@@ -85,6 +91,11 @@ export class Server {
       return res.status(400).send("Invalid URL");
     }
 
+    const cachedEntry = this.cache.get(url);
+    if (cachedEntry) {
+      return res.status(cachedEntry.code).send(cachedEntry.body);
+    }
+
     try {
       const result = await this.renderer.render(url, {
         content: req.body,
@@ -92,6 +103,14 @@ export class Server {
         timeout: asNumber(req.header("x-rendergun-timeout")),
         abortRequestRegexp: req.header("x-rendergun-abort-request"),
       });
+
+      if (result.code >= 200 && result.code < 300) {
+        this.cache.set(url, {
+          code: result.code,
+          body: result.body,
+        });
+      }
+
       return res.status(result.code).send(result.body);
     } catch (err) {
       log.error(err);
