@@ -1,7 +1,7 @@
 {
   "name": "rendergun",
   "version": "0.4.0",
-  "description": "A prerender service powered by puppeteer",
+  "description": "A pre-render service powered by puppeteer",
   "repository": "https://github.com/goenning/rendergun",
   "main": "dist/index.js",
   "bin": {
