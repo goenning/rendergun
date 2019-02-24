@@ -54,11 +54,11 @@ describe("Renderer", () => {
     expect(result.body).toMatchSnapshot();
   });
 
-  test.skip("can render Fider home page (react)", async () => {
+  test("can render a page using JQuery", async () => {
     jest.setTimeout(8000);
 
-    const content = fs.readFileSync("./src/__tests__/testdata/fider-home.html", "UTF-8");
-    const result = await renderer.render("https://trax.fider.io/", { content });
+    const content = fs.readFileSync("./src/__tests__/testdata/jquery-bootstrap.html", "UTF-8");
+    const result = await renderer.render("https://this-url-doesnt-matter.com/", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();
   });

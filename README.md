@@ -1,23 +1,14 @@
-# How to use it
+<p align="center">
+  <img src="https://raw.githubusercontent.com/getfider/fider/HEAD/assets/logo.png" />
+  <div align="center">
+    <strong>A prerender service for client-side rendered websites</strong>
+  </div>
+  <br />
+  <div align="center">Build your app with your favorite JavaScript framework and use rendergun to provide server-side HTML to web crawlers such as Google, Bing and DuckDuckGo</div>
+</p>
 
-Start a new container with
+## Features
 
-```
-$ docker run --name rendergun -p 3000:3000 goenning/rendergun
-```
+## How to use
 
-On your browser, navigate to `http://localhost:3000/render?url=https://example.org`
-
-🎉
-
-# Load Testing
-
-Install https://github.com/tsenart/vegeta
-
-```
-$ echo "GET http://localhost:3000/render?url=http://example.org" | vegeta attack -duration=5s | tee results.bin | vegeta report
-```
-
-# To do
-
-- Better Documentation
+## Parameters
