@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { log } from "./log";
 import { Server } from "./server";
 

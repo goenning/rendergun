@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JQuery + Bootstrap</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <noscript>
+    <h2>Please enable JavaScript</h2>
+    <p>This website relies on JavaScript-based technologies and services.</p>
+    <p>Please enable JavaScript and then reload the page.</p>
+  </noscript>
+  <span id="this-location"></span>
+  <ul>
+    <li>Empty 1</li>
+    <li>Empty 2</li>
+    <li>Empty 3</li>
+  </ul>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $("#this-location").html(window.location.href)
+    $("ul li").html("This is JQUERY!")
+  </script>
+</body>
+</html>
+

@@ -4,6 +4,9 @@
   "description": "A prerender service powered by puppeteer",
   "repository": "https://github.com/goenning/rendergun",
   "main": "dist/index.js",
+  "bin": {
+    "rendergun": "dist/index.js"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsc && DEBUG=http,renderer,error,cache NODE_ENV=development node dist/index.js",
