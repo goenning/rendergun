@@ -33,6 +33,7 @@ ADD src /app/src
 
 RUN npm install
 RUN npm test
+RUN npm run lint
 RUN npm run build
 
 # Final Image
