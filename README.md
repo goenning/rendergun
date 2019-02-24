@@ -17,12 +17,12 @@ Most libraries provide a way to do Server-Side Rendering (SSR), which is perfect
 Pre-rendering is recommended by Google. Visit [https://developers.google.com/search/docs/guides/dynamic-rendering](https://developers.google.com/search/docs/guides/dynamic-rendering) to learn more.
 
 ## Features
-‍⚕️
-* 🚀**Uses a real, stable and up-to-date Chromium (Google Chrome):** Built on top of [puppeteer](https://github.com/GoogleChrome/puppeteer), an API for Headless Chrome
-* 👩🏻‍⚕️**Self-healing:** Rendergun constantly checks the healthy of the browser instance and restart it if necessary.
-* ⚡️**Cache:** Pages are cached to provide lighning fast responses. 
-* 🔀**Skip unnecessary requests:** Rendergun can skip requests that are not required for rendering, such as CSS and Images files, which can greatly increase the performance of rendering process.
-* 🐳**Runs on Docker:** Rendergun has an official Docker image. Just pull and run it!
+
+- 🚀 **Uses a real, stable and up-to-date Chromium (Google Chrome):** Built on top of [puppeteer](https://github.com/GoogleChrome/puppeteer), an API for Headless Chrome
+- 👩🏻‍⚕️ **Self-healing:** Rendergun constantly checks the healthy of the browser instance and restart it if necessary.
+- ⚡️ **Cache:** Pages are cached to provide lighning fast responses. 
+- 🔀 **Skip unnecessary requests:** Rendergun can skip requests that are not required for rendering, such as CSS and Images files, which can greatly increase the performance of rendering process.
+- 🐳 **Runs on Docker:** Rendergun has an official Docker image. Just pull and run it!
 
 ## How to install
 
@@ -30,7 +30,7 @@ Rendergun can be used as a Node.js CLI or Docker container.
 
 #### Rendergun Node.js CLI
 
-```
+```sh
 # install rendergun install NPM
 $ npm i -g rendergun 
 
@@ -40,13 +40,13 @@ $ rendergun
 
 #### Rendergun Docker Container
 
-```
+```sh
 docker run --name rendergun -p 3000:3000 goenning/rendergun
 ```
 
 ## Operations
 
-#### Render
+### /render
 
 - Use Case: Request a HTML rendered version of a webpage
 - HTTP Method: GET or POST
@@ -54,16 +54,16 @@ docker run --name rendergun -p 3000:3000 goenning/rendergun
 
 | Location | Name | Default Value  | Comments |
 | ---- | ---- | -------------- | ----------- |
-| QueryString | url | &lt;empty&gt; | which url to pre-render |
+| QueryString | url | | which url to pre-render |
 | HTTP Header | x-rendergun-wait-until | `load` | which chrome event to wait before returning the HTML. Possible values are `load`, `domcontentloaded`, `networkidle0`,`networkidle2` |
 | HTTP Header | x-rendergun-timeout | `10000` | timeout in miliseconds for Chrome to load the page |
-| HTTP Header | x-rendergun-abort-request | &lt;empty&gt; | a RegExp that aborts all requests that matches it. Useful to skip requests to CSS/Images files that are not required for pre-rendering |
+| HTTP Header | x-rendergun-abort-request | | a RegExp that aborts all requests that matches it. Useful to skip requests to CSS/Images files that are not required for pre-rendering |
 
 **Example:** [https://demo.fider.io](https://demo.fider.io) is a client-side rendered page built with React. Look at the source and you'll see that only JavaScript files and a JSON object is returned by the server. The whole HTML is built by React when it's executed by the browser. 
 
 Start rendergun and open [http://localhost:3000/render?url=https://demo.fider.io](http://localhost:3000/render?url=https://demo.fider.io) on your browser. The visual result should be the same, except that now the server has returned just the HTML content, without the JavaScript files and the JSON object. Web crawlers like Google, Bing and DuckDuckGo prefer this over client-side rendered pages.
 
-#### Health
+### /-/health
 
 - Use Case: Check if Rendergun is healthy
 - HTTP Method: GET
