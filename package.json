@@ -1,7 +1,7 @@
 {
   "name": "rendergun",
-  "version": "1.0.0",
-  "description": "A pretender service powered by puppeteer",
+  "version": "0.4.0",
+  "description": "A prerender service powered by puppeteer",
   "repository": "https://github.com/goenning/rendergun",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "docker"
   ],
   "author": "goenning <me@goenning.net>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "compression": "1.7.3",
     "debug": "4.1.1",
