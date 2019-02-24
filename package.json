@@ -1,7 +1,7 @@
 {
   "name": "rendergun",
-  "version": "0.4.0",
-  "description": "A pre-render service powered by puppeteer",
+  "version": "0.4.2",
+  "description": "A pre-render service for client-side rendered websites",
   "repository": "https://github.com/goenning/rendergun",
   "main": "dist/index.js",
   "bin": {
@@ -12,7 +12,8 @@
     "dev": "tsc && DEBUG=http,renderer,error,cache NODE_ENV=development node dist/index.js",
     "test": "jest",
     "lint": "tslint --project .",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "keywords": [
     "ssr",

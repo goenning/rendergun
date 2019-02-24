@@ -8,7 +8,7 @@
 
 ## Use Case
 
-It's common for developers to build client-side rendered websites using Javascript. While this is great for building interactive websites, if not used correctly, it'll definitely hurt the Search Engine Optimization (SEO) and index ranking.
+Some websites are client-side rendered with JavaScript. While this is great for building interactive websites, if not used correctly, it'll definitely hurt the Search Engine Optimization (SEO) and index ranking.
 
 Most libraries provide a way to do Server-Side Rendering (SSR), which is perfect for SEO. But SSR is not always possible, so a **Pre-rendering** application such as Rendergun is another solution.
 
