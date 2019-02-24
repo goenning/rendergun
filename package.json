@@ -12,7 +12,8 @@
     "dev": "tsc && DEBUG=http,renderer,error,cache NODE_ENV=development node dist/index.js",
     "test": "jest",
     "lint": "tslint --project .",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "keywords": [
     "ssr",
