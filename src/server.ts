@@ -1,14 +1,14 @@
 import compression = require("compression");
-import express from "express";
+import express, { Express, Request, Response} from "express";
 import { Server as HttpServer } from "http";
 import { Cache } from "./cache";
 import config from "./config";
 import { log } from "./log";
 import Renderer from "./renderer";
-import { isValidURL } from "./util";
+import { asNumber, bodyParser, isValidURL } from "./util";
 
 export class Server {
-  private app: express.Express;
+  private app: Express;
   private cache: Cache;
   private renderer: Renderer;
   private httpServer: HttpServer | undefined;
@@ -20,17 +20,7 @@ export class Server {
     this.renderer = new Renderer();
     this.app = express();
     this.app.use(compression());
-    this.app.use((req, res, next) => {
-      let data = "";
-      req.setEncoding("utf8");
-      req.on("data", (chunk) => {
-         data += chunk;
-      });
-      req.on("end", () => {
-          req.body = data;
-          next();
-      });
-    });
+    this.app.use(bodyParser());
 
     this.app.get("/", (req, res) => {
       res.status(200).send("");
@@ -82,21 +72,23 @@ export class Server {
     }
   }
 
-  private handleRender = async (req: express.Request, res: express.Response) => {
-    this.recentRequests++;
-    this.activeRequests++;
-    const url = decodeURIComponent(req.query.url);
-
-    if (!isValidURL(url)) {
-      return res.status(400).send("Invalid URL");
-    }
-
-    const cachedEntry = this.cache.get(url);
-    if (cachedEntry) {
-      return res.status(cachedEntry.code).send(cachedEntry.body);
-    }
-
+  private handleRender = async (req: Request, res: Response) => {
     try {
+      this.recentRequests++;
+      this.activeRequests++;
+      const url = decodeURIComponent(req.query.url);
+
+      if (!isValidURL(url)) {
+        return res.status(400).send("Invalid URL");
+      }
+
+      log.http(`Request for render of '${url}'.`);
+
+      const cachedEntry = this.cache.get(url);
+      if (cachedEntry) {
+        return res.status(cachedEntry.code).send(cachedEntry.body);
+      }
+
       const result = await this.renderer.render(url, {
         content: req.body,
         waitUntil: req.header("x-rendergun-wait-until"),
@@ -120,7 +112,3 @@ export class Server {
     }
   }
 }
-
-const asNumber = (value: string | undefined): number | undefined => {
-  return value ? parseInt(value, 10) : undefined;
-};
