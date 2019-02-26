@@ -94,6 +94,7 @@ export class Server {
         waitUntil: req.header("x-rendergun-wait-until"),
         timeout: asNumber(req.header("x-rendergun-timeout")),
         abortRequestRegexp: req.header("x-rendergun-abort-request"),
+        blockAds: req.header("x-rendergun-block-ads") === "true",
       });
 
       if (result.code >= 200 && result.code < 300) {

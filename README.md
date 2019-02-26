@@ -59,6 +59,7 @@ docker run --name rendergun -p 3000:3000 goenning/rendergun
 | HTTP Header | x-rendergun-wait-until | `load` | No | which chrome event to wait before returning the HTML. Possible values are `load`, `domcontentloaded`, `networkidle0`,`networkidle2` |
 | HTTP Header | x-rendergun-timeout | `10000` | No | timeout in milliseconds for Chrome to load the page |
 | HTTP Header | x-rendergun-abort-request | | No | a RegExp that aborts all requests that matches it. Useful to skip requests to CSS/Images files that are not required for pre-rendering |
+| HTTP Header | x-rendergun-block-ads | false | No | true/false if Rendergun should skip requests to Ads/Trackers domains. This gives a small performance improvement and avoid unecessary tracking |
 
 **Example:** [https://demo.fider.io](https://demo.fider.io) is a client-side rendered page built with React. Look at the source and you'll see that only JavaScript files and a JSON object is returned by the server. The whole HTML is built by React when it's executed by the browser. 
 
