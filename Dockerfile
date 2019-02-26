@@ -29,6 +29,7 @@ ADD package-lock.json /app
 ADD package.json /app
 ADD jest.config.js /app
 ADD tslint.json /app
+ADD adblock-hosts.txt /app
 ADD tsconfig.json /app
 ADD src /app/src
 
@@ -45,6 +46,7 @@ ENV NODE_ENV production
 
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/adblock-hosts.txt /app/adblock-hosts.txt
 COPY --from=builder /app/package.json /app/package.json
 
 HEALTHCHECK CMD curl --fail http://localhost:3000/-/health || exit 1

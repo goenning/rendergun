@@ -14,10 +14,6 @@ export const delay = (ms: number) => {
   });
 };
 
-export const isURLBlackListed = (url: string, regexp?: string): boolean => {
-  return regexp && new RegExp(regexp).test(url) ? true : false;
-};
-
 export const removeTags = async (page: puppeteer.Page, tagNames: string[]) => {
   await page.evaluate((browserTagNames) => {
     for (const tagName of browserTagNames) {

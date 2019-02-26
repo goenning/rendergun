@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer";
 import pptrErrors from "puppeteer/Errors";
+import { isURLBlocked } from "./blocker";
 import { log } from "./log";
-import { delay, isURLBlackListed, removeTags } from "./util";
+import { delay, removeTags } from "./util";
 
 export interface RenderResult {
   code: number;
@@ -13,6 +14,7 @@ export interface RenderOptions {
   timeout?: number;
   waitUntil?: string;
   abortRequestRegexp?: string;
+  blockAds?: boolean;
 }
 
 export default class Renderer {
@@ -70,8 +72,13 @@ export default class Renderer {
     const page = await this.newPage(browser);
 
     let response: puppeteer.Response|null = null;
-    page.on("request", (req) => {
-      if (req.resourceType() === "image" || isURLBlackListed(req.url(), opts.abortRequestRegexp)) {
+    page.on("request", async (req) => {
+      const blocked = await isURLBlocked(req, {
+        abortRegExp: opts.abortRequestRegexp,
+        blockAds: opts.blockAds,
+      });
+
+      if (blocked) {
         return req.abort();
       }
 
