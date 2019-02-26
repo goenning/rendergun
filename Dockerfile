@@ -28,6 +28,7 @@ FROM base AS builder
 ADD package-lock.json /app
 ADD package.json /app
 ADD jest.config.js /app
+ADD tslint.json /app
 ADD tsconfig.json /app
 ADD src /app/src
 
