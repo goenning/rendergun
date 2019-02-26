@@ -32,7 +32,7 @@ ADD tslint.json /app
 ADD tsconfig.json /app
 ADD src /app/src
 
-RUN npm install
+RUN npm ci
 RUN npm test
 RUN npm run lint
 RUN npm run build
@@ -49,4 +49,4 @@ COPY --from=builder /app/package.json /app/package.json
 
 HEALTHCHECK CMD curl --fail http://localhost:3000/-/health || exit 1
 
-CMD ["npm", "start >> ./logs.txt 2>&1"]
+CMD ["npm", "start"]
