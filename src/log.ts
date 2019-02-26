@@ -7,3 +7,7 @@ export const log = {
   http: debug("http"),
   renderer: debug("renderer"),
 };
+
+if (!process.env.DEBUG) {
+  debug.enable("error,http,renderer");
+}

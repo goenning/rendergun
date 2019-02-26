@@ -1,5 +1,5 @@
+import { NextFunction, Request, Response } from "express";
 import puppeteer from "puppeteer";
-import config from "./config";
 
 // tslint:disable-next-line:max-line-length
 const isURLRegExp = new RegExp("^(?:(?:http|https)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$", "i");
@@ -39,4 +39,24 @@ export const niceBytes = (bytes: number) => {
       n = n / 1024;
   }
   return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + " " + units[l]);
+};
+
+export const bodyParser = () => (req: Request, res: Response, next: NextFunction) => {
+  let data = "";
+  req.setEncoding("utf8");
+  req.on("data", (chunk) => {
+    data += chunk;
+  });
+  req.on("end", () => {
+    req.body = data;
+    next();
+  });
+};
+
+export const asNumber = (value: string | undefined): number | undefined => {
+  try {
+    return value ? parseInt(value, 10) : undefined;
+  } catch {
+    return undefined;
+  }
 };

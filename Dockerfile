@@ -28,10 +28,11 @@ FROM base AS builder
 ADD package-lock.json /app
 ADD package.json /app
 ADD jest.config.js /app
+ADD tslint.json /app
 ADD tsconfig.json /app
 ADD src /app/src
 
-RUN npm install
+RUN npm ci
 RUN npm test
 RUN npm run lint
 RUN npm run build
@@ -46,6 +47,6 @@ COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/package.json /app/package.json
 
-HEALTHCHECK CMD curl --fail http://localhost:3000/-/health || exit 1  
+HEALTHCHECK CMD curl --fail http://localhost:3000/-/health || exit 1
 
 CMD ["npm", "start"]
