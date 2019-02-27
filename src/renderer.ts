@@ -18,10 +18,21 @@ export interface RenderOptions {
 }
 
 export default class Renderer {
+  private interval?: NodeJS.Timeout;
+  private logger: debug.Debugger;
   private browser: puppeteer.Browser | undefined;
   private browserWSEndpoint: string | undefined;
+  private activeRequests = 0;
+  private recentRequests = 0;
+
+  constructor(public id: number) {
+    this.logger = log.renderer.extend(this.id.toString());
+  }
 
   public async initialize() {
+    this.activeRequests = 0;
+    this.recentRequests = 0;
+
     if (this.browser) {
       await this.browser.close();
     }
@@ -39,7 +50,24 @@ export default class Renderer {
 
     this.browser.process().on("exit", this.onChromeExit);
     this.browserWSEndpoint = await this.browser.wsEndpoint();
-    log.renderer(`Chrome instance started on '${this.browserWSEndpoint}'.`);
+    this.logger(`Chrome instance started on '${this.browserWSEndpoint}'.`);
+
+    this.interval = setInterval(() => {
+      if (this.activeRequests === 0 && this.recentRequests > 50) {
+        log.renderer(`Restarting renderer after ${this.recentRequests} requests.`);
+        this.recentRequests = 0;
+        this.close();
+      }
+    }, 30 * 1000);
+  }
+
+  public async isHealthy(): Promise<boolean> {
+    try {
+      await this.version();
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   public async version(): Promise<string> {
@@ -59,20 +87,31 @@ export default class Renderer {
   }
 
   public async finalize() {
-    log.renderer("Shutting down the renderer.");
+    this.logger("Shutting down the renderer.");
     if (this.browser) {
       this.browser.process().removeListener("exit", this.onChromeExit);
       await this.close();
-      log.renderer("Rendered has been shutdown.");
+      this.logger("Rendered has been shutdown.");
     }
   }
 
   public async render(url: string, opts: RenderOptions = {}): Promise<RenderResult> {
+    this.logger(`Starting rendering process of '${url}'.`);
+    this.recentRequests++;
+    this.activeRequests++;
     const browser = await this.newBrowser();
     const page = await this.newPage(browser);
 
     let response: puppeteer.Response|null = null;
     page.on("request", async (req) => {
+      if (req.resourceType() === "document" && opts.content) {
+        return req.respond({
+          status: 200,
+          contentType: "text/html",
+          body: opts.content,
+        });
+      }
+
       const blocked = await isURLBlocked(req, {
         abortRegExp: opts.abortRequestRegexp,
         blockAds: opts.blockAds,
@@ -80,16 +119,6 @@ export default class Renderer {
 
       if (blocked) {
         return req.abort();
-      }
-
-      if (req.resourceType() === "document") {
-        if (opts.content) {
-          return req.respond({
-            status: 200,
-            contentType: "text/html",
-            body: opts.content,
-          });
-        }
       }
       return req.continue();
     });
@@ -99,22 +128,28 @@ export default class Renderer {
         timeout: opts.timeout || 10000,
         waitUntil: (opts.waitUntil || "load") as puppeteer.LoadEvent,
       });
+
+      if (!response) {
+        return { code: 400, body: "no response" };
+      }
+
+      await removeTags(page, ["script", "noscript"]);
+
+      return {
+        code: response.status(),
+        body: await page.content(),
+      };
+
     } catch (err) {
       if (err instanceof pptrErrors.TimeoutError) {
         return { code: 504, body: err.message };
       }
       throw err;
+    } finally {
+      this.activeRequests--;
+      await page.close();
+      await browser.disconnect();
     }
-    if (!response) {
-      return { code: 400, body: "no response" };
-    }
-
-    await removeTags(page, ["script", "noscript"]);
-
-    const html = await page.content();
-    await page.close();
-    await browser.disconnect();
-    return { code: response.status(), body: html };
   }
 
   private async newBrowser(): Promise<puppeteer.Browser> {
@@ -135,8 +170,12 @@ export default class Renderer {
   }
 
   private onChromeExit = async () => {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
     this.browserWSEndpoint = undefined;
-    log.renderer(`Chrome instance has exited.`);
+    this.logger(`Chrome instance has exited.`);
     await this.initialize();
   }
 

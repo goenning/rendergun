@@ -2,7 +2,7 @@ import * as fs from "fs";
 import Renderer from "../renderer";
 
 describe("Renderer", () => {
-  const renderer = new Renderer();
+  const renderer = new Renderer(0);
 
   beforeAll(async () => {
     await renderer.initialize();
