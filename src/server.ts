@@ -29,23 +29,22 @@ export class Server {
     });
 
     this.app.get("/-/health", async (req, res) => {
-      try {
-        const response = {} as any;
-        response.healthy = true;
-        response.workers = [];
-        for (const renderer of this.renderers) {
-          response.worker.push({
-            id: renderer.id,
-            healthy: await renderer.version(),
-          });
+      const response = {} as any;
+      response.healthy = true;
+      response.workers = [];
+      for (const renderer of this.renderers) {
+        const isHealthy = await renderer.isHealthy();
+        if (!isHealthy) {
+          response.healthy = false;
         }
 
-        res.status(200).send(response);
-      } catch (err) {
-        res.status(500).send({
-          healthy: false,
+        response.workers.push({
+          id: renderer.id,
+          healthy: isHealthy,
         });
       }
+
+      res.status(response.healthy ? 200 : 500).send(response);
     });
 
     this.app.get("/render", this.handleRender);
