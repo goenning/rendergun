@@ -9,5 +9,5 @@ export const log = {
 };
 
 if (!process.env.DEBUG) {
-  debug.enable("error,http,renderer");
+  debug.enable("error,http,renderer:*");
 }

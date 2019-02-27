@@ -10,14 +10,16 @@ import { asNumber, bodyParser, isValidURL } from "./util";
 export class Server {
   private app: Express;
   private cache: Cache;
-  private renderer: Renderer;
+  private renderers: Renderer[] = [];
   private httpServer: HttpServer | undefined;
-  private activeRequests = 0;
-  private recentRequests = 0;
+  private nextWorkerIdx: number = 0;
 
   constructor() {
     this.cache = new Cache();
-    this.renderer = new Renderer();
+    for (let i = 0; i < config.numOfWorkers; i++) {
+      this.renderers.push(new Renderer(i));
+    }
+
     this.app = express();
     this.app.use(compression());
     this.app.use(bodyParser());
@@ -27,12 +29,22 @@ export class Server {
     });
 
     this.app.get("/-/health", async (req, res) => {
-      try {
-        const version = await this.renderer.version();
-        res.status(200).send(`Healthy: Yes <br/> Version: ${version}`);
-      } catch (err) {
-        res.status(500).send(`Healthy: No <br/> Error: ${err.message}`);
+      const response = {} as any;
+      response.healthy = true;
+      response.workers = [];
+      for (const renderer of this.renderers) {
+        const isHealthy = await renderer.isHealthy();
+        if (!isHealthy) {
+          response.healthy = false;
+        }
+
+        response.workers.push({
+          id: renderer.id,
+          healthy: isHealthy,
+        });
       }
+
+      res.status(response.healthy ? 200 : 500).send(response);
     });
 
     this.app.get("/render", this.handleRender);
@@ -40,23 +52,14 @@ export class Server {
   }
 
   public async start() {
-    await this.renderer.initialize();
+    await Promise.all(this.renderers.map((r) => r.initialize()));
+
     this.httpServer = this.app.listen(config.port, () => {
       if (process.send) {
         process.send("ready");
       }
       log.http(`Rendergun started on port ${config.port}.`);
     });
-
-    setInterval(() => {
-      this.cache.stats();
-
-      if (this.activeRequests === 0 && this.recentRequests > 50) {
-        log.renderer(`Restarting renderer after ${this.recentRequests} requests.`);
-        this.recentRequests = 0;
-        this.renderer.close();
-      }
-    }, 30 * 1000);
   }
 
   public close() {
@@ -65,7 +68,7 @@ export class Server {
     if (this.httpServer) {
       this.httpServer.close(() => {
         log.http("Server has been shutdown.");
-        this.renderer.finalize().then(() => {
+        Promise.all(this.renderers.map((r) => r.finalize())).then(() => {
           process.exit(0);
         });
       });
@@ -74,8 +77,6 @@ export class Server {
 
   private handleRender = async (req: Request, res: Response) => {
     try {
-      this.recentRequests++;
-      this.activeRequests++;
       const url = decodeURIComponent(req.query.url);
 
       if (!isValidURL(url)) {
@@ -89,7 +90,8 @@ export class Server {
         return res.status(cachedEntry.code).send(cachedEntry.body);
       }
 
-      const result = await this.renderer.render(url, {
+      const renderer = await this.getHealthyWorker();
+      const result = await renderer.render(url, {
         content: req.body,
         waitUntil: req.header("x-rendergun-wait-until"),
         timeout: asNumber(req.header("x-rendergun-timeout")),
@@ -108,8 +110,28 @@ export class Server {
     } catch (err) {
       log.error(err);
       return res.status(500).send(err.toString());
-    } finally {
-      this.activeRequests--;
     }
+  }
+
+  private async getHealthyWorker(): Promise<Renderer> {
+    let counter = 0;
+    let isHealthy = false;
+    while (counter !== this.renderers.length) {
+      const renderer = this.renderers[this.nextWorkerIdx];
+      isHealthy = await renderer.isHealthy();
+
+      this.nextWorkerIdx++;
+      if (this.nextWorkerIdx >= this.renderers.length) {
+        this.nextWorkerIdx = 0;
+      }
+
+      if (isHealthy) {
+        return renderer;
+      }
+
+      counter++;
+    }
+
+    throw new Error("Could not find a healthy worker");
   }
 }

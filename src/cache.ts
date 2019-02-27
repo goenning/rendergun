@@ -19,6 +19,10 @@ export class Cache {
       },
       maxAge: parseInt(config.cacheMaxAge, 10) * 1000,
     });
+
+    setInterval(() => {
+      this.stats();
+    }, 30 * 1000);
   }
 
   public stats() {
