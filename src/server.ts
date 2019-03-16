@@ -60,6 +60,8 @@ export class Server {
       }
       log.http(`Rendergun started on port ${config.port}.`);
     });
+
+    this.httpServer.keepAliveTimeout = this.httpServer.timeout - 15000; //15 seconds less than timeout
   }
 
   public close() {

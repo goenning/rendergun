@@ -1,6 +1,6 @@
 {
   "name": "rendergun",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A pre-render service for client-side rendered websites",
   "repository": "https://github.com/goenning/rendergun",
   "main": "dist/index.js",
