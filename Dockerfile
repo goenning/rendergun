@@ -1,5 +1,5 @@
 # Base Image with Puppeteer dependencies
-FROM node:10-slim as base
+FROM node:12-slim as base
 
 # Installs latest Chromium dependencies
 # Reference: https://github.com/GoogleChrome/puppeteer/blob/master/.ci/node8/Dockerfile.linux
