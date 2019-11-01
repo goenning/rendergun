@@ -148,7 +148,7 @@ export default class Renderer {
       throw err;
     } finally {
       const elapsedTime = Date.now() - startTime;
-      this.logger(`Finished rendering process of '${url}'. Took ${elapsedTime}ms.`);
+      this.logger(`Finished rendering process of '${url}', it took ${elapsedTime}ms.`);
       this.activeRequests--;
       await page.close();
       await browser.disconnect();
