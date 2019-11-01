@@ -96,6 +96,7 @@ export default class Renderer {
   }
 
   public async render(url: string, opts: RenderOptions = {}): Promise<RenderResult> {
+    const startTime = Date.now();
     this.logger(`Starting rendering process of '${url}'.`);
     this.recentRequests++;
     this.activeRequests++;
@@ -146,6 +147,8 @@ export default class Renderer {
       }
       throw err;
     } finally {
+      const elapsedTime = Date.now() - startTime;
+      this.logger(`Finished rendering process of '${url}'. Took ${elapsedTime}ms.`);
       this.activeRequests--;
       await page.close();
       await browser.disconnect();
