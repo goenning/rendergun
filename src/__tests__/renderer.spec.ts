@@ -39,7 +39,7 @@ describe("Renderer", () => {
   test("can render a simple string", async () => {
     jest.setTimeout(8000);
 
-    const content = fs.readFileSync("./src/__tests__/testdata/simple-string.html", "UTF-8");
+    const content = fs.readFileSync("./src/__tests__/testdata/simple-string.html", { encoding: "utf8" });
     const result = await renderer.render("https://example.org", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();
@@ -48,7 +48,7 @@ describe("Renderer", () => {
   test("can render javascript content", async () => {
     jest.setTimeout(8000);
 
-    const content = fs.readFileSync("./src/__tests__/testdata/simple-javascript.html", "UTF-8");
+    const content = fs.readFileSync("./src/__tests__/testdata/simple-javascript.html", { encoding: "utf8" });
     const result = await renderer.render("https://example.org", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();
@@ -57,7 +57,7 @@ describe("Renderer", () => {
   test("can render a page using JQuery", async () => {
     jest.setTimeout(8000);
 
-    const content = fs.readFileSync("./src/__tests__/testdata/jquery-bootstrap.html", "UTF-8");
+    const content = fs.readFileSync("./src/__tests__/testdata/jquery-bootstrap.html", { encoding: "utf8" });
     const result = await renderer.render("https://this-url-doesnt-matter.com/", { content });
     expect(result.code).toBe(200);
     expect(result.body).toMatchSnapshot();

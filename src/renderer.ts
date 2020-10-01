@@ -1,5 +1,4 @@
 import puppeteer from "puppeteer";
-import pptrErrors from "puppeteer/Errors";
 import { isURLBlocked } from "./blocker";
 import { log } from "./log";
 import { delay, removeTags } from "./util";
@@ -24,6 +23,7 @@ export default class Renderer {
   private browserWSEndpoint: string | undefined;
   private activeRequests = 0;
   private recentRequests = 0;
+
 
   constructor(public id: number) {
     this.logger = log.renderer.extend(this.id.toString());
@@ -142,7 +142,7 @@ export default class Renderer {
       };
 
     } catch (err) {
-      if (err instanceof pptrErrors.TimeoutError) {
+      if (err instanceof puppeteer.errors.TimeoutError) {
         return { code: 504, body: err.message };
       }
       throw err;
