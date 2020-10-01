@@ -79,7 +79,12 @@ export class Server {
 
   private handleRender = async (req: Request, res: Response) => {
     try {
-      const url = decodeURIComponent(req.query.url);
+      const urlString = req.query.url?.toString()
+      if (!urlString) {
+        return res.status(400).send("Missing URL");
+      }
+
+      const url = decodeURIComponent(urlString);
 
       if (!isValidURL(url)) {
         return res.status(400).send("Invalid URL");
